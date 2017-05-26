@@ -12,12 +12,16 @@ RUN ./xsetup --agree XilinxEULA,3rdPartyEULA,WebTalkTerms \
 
 RUN apt-get update && apt-get install -y \
         libx11-6 \
+        libxext6 \
+        libxrender1 \
+        libxtst6 \
+        libxi6 \
     && apt-get -y autoremove \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /src/*.deb
 
-
+WORKDIR /opt/Xilinx/Vivado/2017.1/bin
 TAG vivado:0.1
 
 ATTACH
