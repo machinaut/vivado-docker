@@ -8,6 +8,7 @@ attach:
 	rocker build --attach
 
 run:
+	pkill socat
 	socat TCP-LISTEN:6000,reuseaddr,fork UNIX-CLIENT:\"${DISPLAY}\" &
 	open -a xQuartz
 	docker run -it --rm \
