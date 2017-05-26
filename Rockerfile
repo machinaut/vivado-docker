@@ -1,0 +1,23 @@
+FROM ubuntu:16.04
+
+MOUNT vivado:/vivado
+
+COPY Xilinx.lic /root/
+COPY install_config.txt /root/
+
+WORKDIR /vivado
+RUN ./xsetup --agree XilinxEULA,3rdPartyEULA,WebTalkTerms \
+             --batch Install \
+             --c /root/install_config.txt
+
+RUN apt-get update && apt-get install -y \
+        libx11-6 \
+    && apt-get -y autoremove \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /src/*.deb
+
+
+TAG vivado:0.1
+
+ATTACH
